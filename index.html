@@ -1,77 +1,420 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition duration-300">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Genmitra | Book Appointment</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Genmitra - Public Services Help</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
   <style>
-    body {
-      background: linear-gradient(135deg, #ff9933, #ffffff, #138808);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .swiper {
+      width: 100%;
+      height: 400px;
     }
-    .animate-slide-in {
-      opacity: 0;
-      transform: translateY(50px);
-      animation: slide-in 0.8s ease-out forwards;
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    @keyframes slide-in {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-    .rocket-launch {
-      display: none;
-      font-size: 3rem;
-      animation: launch 2s ease-in-out forwards;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #ff6b6b;
     }
-    @keyframes launch {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-400px); opacity: 0; }
+
+    .swiper-pagination-bullet-active {
+      background-color: #ff6b6b;
     }
+
+.faq-question {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  color: #ff6b6b; /* Example color */
+}
+
+.faq-answer {
+  margin-bottom: 1rem;
+  display: none; /* Initially hide the answer */
+  color: #555;
+}
+
+.faq-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background-color: #f7fafc; /* Light background for FAQ items */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+.faq-item.open .faq-answer {
+  display: block; /* Show answer when parent has 'open' class */
+}
   </style>
-</head>
-<body class="flex items-center justify-center min-h-screen">
-  <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md animate-slide-in">
-    <h1 class="text-3xl font-bold text-center text-orange-600 mb-4">Genmitra Appointment</h1>
-    <p class="text-center text-green-600 mb-6">We help you with EPF, PAN, Aadhaar, Income Tax & more.</p>
-
-    <form action="https://formsubmit.co/namaste.genmitra@gmail.com" method="POST" class="space-y-4" onsubmit="showRocket()">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="text" name="name" placeholder="Full Name" required class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
-      <input type="email" name="email" placeholder="Email Address" required class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
-      <input type="tel" name="phone" placeholder="Phone Number" required class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
-      <select name="service" required class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
-        <option value="">Select Service</option>
-        <option>EPF Withdrawal</option>
-        <option>Aadhaar Update</option>
-        <option>PAN Correction</option>
-        <option>Income Tax Help</option>
-        <option>Other Govt Help</option>
-      </select>
-      <textarea name="message" rows="3" placeholder="Anything else?" class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
-      <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition-all">Book Appointment</button>
-    </form>
-
-    <p class="text-sm text-gray-500 mt-6 text-center">Genmitra - Making public services simple 🇮🇳</p>
-  </div>
-
-  <div id="rocket" class="rocket-launch">🚀</div>
-
   <script>
-    function showRocket() {
-      const rocket = document.getElementById('rocket');
-      rocket.style.display = 'block';
-      setTimeout(() => {
-        rocket.style.display = 'none';
-      }, 2000);
+    tailwind.config = {
+      darkMode: 'class',
+    }
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
     }
   </script>
+</head>
+<body class="bg-white text-gray-800 transition duration-300">
+  <nav class="flex justify-between items-center px-6 py-4 shadow-md bg-orange-500 dark:bg-orange-700">
+    <h1 class="text-2xl font-bold text-white">Genmitra</h1>
+    <div class="flex items-center gap-4">
+      <button onclick="toggleDarkMode()" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full">🌓</button>
+      <a href="#login" class="bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600">Login</a>
+    </div>
+  </nav>
+
+  <section class="text-center py-20 px-6 bg-gradient-to-br from-orange-100 via-white to-green-100 dark:from-gray-800 dark:via-black dark:to-gray-800 transition duration-500">
+    <h2 class="text-5xl font-bold mb-4 animate-bounce text-orange-600 dark:text-orange-400">Welcome to Genmitra</h2>
+    <p class="text-xl mb-6 text-gray-700 dark:text-gray-300">Simplifying Government Services</p>
+    <a href="#query" class="inline-block bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700">Explore Services</a>
+  </section>
+
+  <section id="services" class="py-16 px-6 max-w-6xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 service-link" data-service="epf">
+      <h3 class="text-xl font-bold mb-2 text-orange-500 dark:text-orange-300">EPF Withdrawal</h3>
+      <p class="text-gray-700 dark:text-gray-200">Secure and quick PF claim assistance.</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 service-link" data-service="pan">
+      <h3 class="text-xl font-bold mb-2 text-orange-500 dark:text-orange-300">PAN / Aadhaar Help</h3>
+      <p class="text-gray-700 dark:text-gray-200">Linking, correction, update made easy.</p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:scale-105 service-link" data-service="tax">
+      <h3 class="text-xl font-bold mb-2 text-orange-500 dark:text-orange-300">Income Tax Filing</h3>
+      <p class="text-gray-700 dark:text-gray-200">File your taxes on time with expert help.</p>
+    </div>
+  </section>
+
+  <section id="login" class="py-20 bg-orange-100 dark:bg-gray-800 px-6">
+    <div class="max-w-md mx-auto bg-white dark:bg-gray-900 p-8 rounded-xl shadow-xl">
+      <h2 class="text-2xl font-bold mb-6 text-center text-orange-500 dark:text-orange-400">User Login</h2>
+      <form id="loginForm" action="https://uidai.gov.in">
+        <label class="block mb-2 font-semibold">Username</label>
+        <input type="text" value="demo" class="w-full px-4 py-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 dark:text-white" required>
+        
+        <label class="block mb-2 font-semibold">Password</label>
+        <input type="password" value="demo" class="w-full px-4 py-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 dark:text-white" required>
+        
+        <button type="submit" class="w-full bg-green-600 text-white px-4 py-2 rounded-xl hover:bg-green-700">Login</button>
+      </form>
+        <div class="mt-4 text-center">
+            <a href="#employee-login" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600">Employee Login</a>
+        </div>
+    </div>
+  </section>
+
+  <section id="employee-login" class="py-20 bg-orange-100 dark:bg-gray-800 px-6 hidden">
+    <div class="max-w-md mx-auto bg-white dark:bg-gray-900 p-8 rounded-xl shadow-xl">
+      <h2 class="text-2xl font-bold mb-6 text-center text-orange-500 dark:text-orange-400">Employee Login</h2>
+      <form id="employeeLoginForm" action="/employee/login">
+        <label class="block mb-2 font-semibold">Employee ID</label>
+        <input type="text"  class="w-full px-4 py-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 dark:text-white" required>
+        
+        <label class="block mb-2 font-semibold">Password</label>
+        <input type="password" class="w-full px-4 py-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 dark:text-white" required>
+        
+        <button type="submit" class="w-full bg-green-600 text-white px-4 py-2 rounded-xl hover:bg-green-700">Login</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="admin-panel" class="py-20 bg-green-100 dark:bg-gray-900 px-6 hidden">
+    <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-xl shadow-xl">
+      <h2 class="text-3xl font-bold mb-6 text-center text-green-600 dark:text-green-400">Admin Panel</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Website Performance</h3>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+            <p class="text-gray-600 dark:text-gray-300">Placeholder for performance data (e.g., page views, user sessions, etc.)</p>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">User Activity</h3>
+          <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+             <p class="text-gray-600 dark:text-gray-300">Placeholder for user activity data (e.g., service requests, logins, etc.)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="founder" class="py-16 px-6 text-center">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold mb-4 text-orange-500 dark:text-orange-300">About the Founder</h2>
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <p class="text-gray-700 dark:text-gray-200 text-lg">
+          Genmitra was founded by Mr. vivank singh from Hyderabad, a software engineer, with a vision to simplify access to essential government services for every Indian citizen. He believes in leveraging technology to bridge the gap between citizens and government processes, ensuring a seamless and transparent experience.
+        </p>
+        <p class="mt-4 text-gray-700 dark:text-gray-200 text-lg">
+          Mr. Singh's background in software engineering drove him to create a platform that empowers individuals to navigate complex procedures with ease.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="py-16 px-6">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-orange-500 dark:text-orange-300 text-center">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3 class="faq-question">What is Genmitra?</h3>
+                <p class="faq-answer">Genmitra is a platform designed to simplify access to government services in India.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">How do I use Genmitra to withdraw my EPF?</h3>
+                <p class="faq-answer">Genmitra provides assistance with the EPF withdrawal process.  You can find the EPF option under the services section.</p>
+            </div>
+             <div class="faq-item">
+                <h3 class="faq-question">How do I track my Income Tax Filing?</h3>
+                <p class="faq-answer">Genmitra assists in Income Tax Filing. After you submit your details, our team will help you track the progress.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">Is my data secure with Genmitra?</h3>
+                <p class="faq-answer">Yes, Genmitra takes data security very seriously.  We employ robust security measures to protect your information.</p>
+            </div>
+        </div>
+    </section>
+
+  <section id="pricing" class="py-16 px-6 bg-orange-100 dark:bg-gray-800">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-orange-500 dark:text-orange-300 text-center">Pricing</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+          <h3 class="text-xl font-semibold mb-4 text-green-600 dark:text-green-400">EPF Withdrawal</h3>
+          <p class="text-gray-700 dark:text-gray-200 mb-4">Basic Assistance</p>
+          <p class="text-2xl font-bold mb-4 text-orange-500 dark:text-orange-300">₹499</p>
+           <ul class="list-disc list-inside mb-4 text-gray-600 dark:text-gray-300">
+              <li>Document Check</li>
+              <li>Form Filling Assistance</li>
+              <li>Basic Support</li>
+           </ul>
+          <button class="w-full bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600">Get Started</button>
+        </div>
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+          <h3 class="text-xl font-semibold mb-4 text-green-600 dark:text-green-400">PAN/Aadhaar</h3>
+          <p class="text-gray-700 dark:text-gray-200 mb-4">Standard Assistance</p>
+          <p class="text-2xl font-bold mb-4 text-orange-500 dark:text-orange-300">₹399</p>
+          <ul class="list-disc list-inside mb-4 text-gray-600 dark:text-gray-300">
+              <li>Document Check</li>
+              <li>Application Filing</li>
+              <li>Follow-up Support</li>
+           </ul>
+          <button class="w-full bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600">Get Started</button>
+        </div>
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+          <h3 class="text-xl font-semibold mb-4 text-green-600 dark:text-green-400">Income Tax Filing</h3>
+          <p class="text-gray-700 dark:text-gray-200 mb-4">Comprehensive Filing</p>
+          <p class="text-2xl font-bold mb-4 text-orange-500 dark:text-orange-300">₹999</p>
+          <ul class="list-disc list-inside mb-4 text-gray-600 dark:text-gray-300">
+              <li>Document Collection</li>
+              <li>Tax Calculation</li>
+              <li>Filing & Submission</li>
+               <li>Expert Consultation</li>
+           </ul>
+          <button class="w-full bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600">Get Started</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="query-form" class="py-20 bg-orange-100 dark:bg-gray-800 px-6 hidden">
+    <div class="max-w-md mx-auto bg-white dark:bg-gray-900 p-8 rounded-xl shadow-xl">
+      <h2 class="text-2xl font-bold mb-6 text-center text-orange-500 dark:text-orange-400">Service Request Form</h2>
+      <form id="queryForm" action="/submit-query" method="post" enctype="multipart/form-data">
+        <label for="name" class="block mb-2 font-semibold">Name</label>
+        <input type="text" id="name" name="name" class="w-full px-4 py-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 dark:text-white" required>
+        
+        <label for="email" class="block mb-2 font-semibold">Email</label>
+        <input type="email" id="email" name="email" class="w-full px-4 py-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 dark:text-white" required>
+        
+        <label for="service" class="block mb-2 font-semibold">Service</label>
+        <select id="service" name="service" class="w-full px-4 py-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 dark:text-white" required>
+          <option value="">Select a service</option>
+          <option value="epf">EPF Withdrawal</option>
+          <option value="pan">PAN/Aadhaar</option>
+          <option value="tax">Income Tax</option>
+        </select>
+        
+        <label for="details" class="block mb-2 font-semibold">Details</label>
+        <textarea id="details" name="details" class="w-full px-4 py-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 dark:text-white h-32" required></textarea>
+        
+        <label for="documents" class="block mb-2 font-semibold">Documents</label>
+        <input type="file" id="documents" name="documents[]" multiple class="w-full px-4 py-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 dark:text-white" required>
+        
+        <button type="submit" class="w-full bg-green-600 text-white px-4 py-2 rounded-xl hover:bg-green-700">Submit Request</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-gray-300 py-6 text-center">
+    <p>© 2025 Genmitra. All rights reserved. Made with ❤️ in India. Office Location: Hyderabad. Instagram: @genmitra</p>
+  </footer>
+
+
+
+  <script>
+    const serviceLinks = document.querySelectorAll('.service-link');
+    const queryForm = document.getElementById('query-form');
+    const servicesSection = document.getElementById('services');
+    const exploreServicesBtn = document.querySelector('a[href="#query"]');
+    const loginForm = document.getElementById('loginForm');
+    const employeeLoginForm = document.getElementById('employeeLoginForm');
+    const adminPanel = document.getElementById('admin-panel');
+    const employeeLoginLink = document.querySelector('a[href="#employee-login"]');
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+
+    serviceLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        const service = this.dataset.service;
+        document.getElementById('service').value = service;
+        servicesSection.classList.add('hidden');
+        queryForm.classList.remove('hidden');
+      });
+    });
+
+    exploreServicesBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+      servicesSection.classList.remove('hidden');
+      queryForm.classList.add('hidden');
+      window.location.href = '#query';
+    });
+
+    employeeLoginLink.addEventListener('click', function(event){
+        event.preventDefault();
+        document.getElementById('login').classList.add('hidden');
+        document.getElementById('employee-login').classList.remove('hidden');
+    });
+
+    loginForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      // Redirect to UIDAI website (simulated)
+      window.location.href = 'https://uidai.gov.in';
+    });
+
+    employeeLoginForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      // Show admin panel (for demonstration)
+      document.getElementById('employee-login').classList.add('hidden');
+      adminPanel.classList.remove('hidden');
+    });
+
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+
+    faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                this.parentNode.classList.toggle('open');
+            });
+        });
+  </script>
+
+<script>
+// Function to handle file size validation
+function validateFileSize(input) {
+    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+    let totalSize = 0;
+
+    if (input.files && input.files.length > 0) {
+        for (let i = 0; i < input.files.length; i++) {
+            totalSize += input.files[i].size;
+            if (input.files[i].size > maxSizeInBytes) {
+                alert(`File size exceeds 5MB: ${input.files[i].name}`);
+                input.value = ''; // Clear the input
+                return false;
+            }
+        }
+        if (totalSize > 10 * 1024 * 1024) {
+                alert(`Total files size exceeds 10MB.`);
+                input.value = ''; // Clear the input
+                return false;
+        }
+    }
+    return true;
+}
+
+// Function to handle file type validation
+function validateFileType(input) {
+    const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+    if (input.files && input.files.length > 0) {
+        for (let i = 0; i < input.files.length; i++) {
+            if (!allowedTypes.includes(input.files[i].type)) {
+                alert(`Invalid file type: ${input.files[i].name}. Only JPG, PNG, and PDF files are allowed.`);
+                input.value = ''; // Clear the input
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+// Attach the validation functions to the file input's onchange event
+const fileInput = document.getElementById('documents');
+if (fileInput) {
+    fileInput.addEventListener('change', function() {
+        if (!validateFileType(this) || !validateFileSize(this)) {
+            // The input value is already cleared in the validation functions
+            // No need to do it here
+            return;
+        }
+    });
+}
+
+// Get the form element
+const queryForm = document.getElementById('queryForm');
+
+// Add an event listener to the form for submission
+if (queryForm) {
+    queryForm.addEventListener('submit', function(event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        // Get the form data
+        const formData = new FormData(this);
+
+        // Log the form data to the console (for demonstration purposes)
+        for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+
+        // Simulate sending the data to a server (replace with actual AJAX request)
+        setTimeout(() => {
+            alert('Form submitted successfully! (Simulated)');
+            // Reset the form
+            queryForm.reset();
+            //hide the form and show the services
+            document.getElementById('query-form').classList.add('hidden');
+            document.getElementById('services').classList.remove('hidden');
+
+        }, 2000); // Simulate a 2-second delay
+    });
+}
+</script>
+
 </body>
 </html>
